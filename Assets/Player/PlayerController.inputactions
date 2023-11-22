@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "Rotation",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "4841465f-ab2c-41e9-af8e-3c2bc0bd01b7",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -103,9 +103,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "69099a57-c99f-43f6-bcdc-dd2e5f8dab1e",
-                    "path": "1DAxis",
+                    "name": "2D Vector",
+                    "id": "eb2445bf-8cb2-40dd-b7b4-1d821a36f982",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -114,8 +114,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "bdcbccd6-334b-46d3-96bd-606580f5aaa4",
+                    "name": "left",
+                    "id": "6a14a37b-89f0-40cc-879e-2a30347dbc59",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
@@ -125,8 +125,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
-                    "id": "583fc564-487a-4ded-a528-95bf0b62ece2",
+                    "name": "right",
+                    "id": "e02229f4-e539-4339-af2b-f0f4f26caaeb",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
