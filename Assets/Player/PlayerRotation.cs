@@ -23,7 +23,7 @@ public class PlayerRotation : MonoBehaviour
             {
                 _isRotating = true;
                 _activationTime = Time.time + _waitActivationTime;
-                Rotate(_direction);
+                RotateKeyboard(_direction);
             }
             else
             {
@@ -31,7 +31,7 @@ public class PlayerRotation : MonoBehaviour
                 {
                     if (Time.time > _rotationTime)
                     {
-                        Rotate(_direction);
+                        RotateKeyboard(_direction);
                         _rotationTime = Time.time + _waitRotationTime;
                     }
                 }
@@ -43,7 +43,7 @@ public class PlayerRotation : MonoBehaviour
         }
     }
 
-    public void Rotate(float direction)
+    public void RotateKeyboard(float direction)
     {
         _transform.rotation = Quaternion.Euler(0, 0, _transform.eulerAngles.z + 90 * direction);
     }
@@ -51,5 +51,15 @@ public class PlayerRotation : MonoBehaviour
     public void SetRotation(float direction)
     {
         _direction = direction;
+    }
+
+    public void RotateGamepad(Vector2 direction)
+    {
+        if (direction.x == 1 || direction.x == -1)
+            _transform.rotation = Quaternion.Euler(0, 0, 90 * direction.x);
+        else if (direction.y == 1)
+            _transform.rotation = Quaternion.Euler(0, 0, 180);
+        else if (direction.y == -1)
+            _transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }
