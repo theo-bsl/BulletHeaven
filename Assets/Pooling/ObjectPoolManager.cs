@@ -79,7 +79,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     }
 
-    public static GameObject SpawnObject(GameObject ObjectToSpawn, Vector2 SpawnPosition, Quaternion SpawnRotation, PoolType poolType = PoolType.None)
+    public static GameObject SpawnObject(GameObject ObjectToSpawn, Vector2 SpawnPosition, PoolType poolType = PoolType.None)
     {
         PooledObjectInfo pool = ObjectPools.Find(p => p.LookupString == ObjectToSpawn.name);
         
@@ -99,8 +99,8 @@ public class ObjectPoolManager : MonoBehaviour
             GameObject parentObject = SetParentObject(poolType);
 
             //if there are no inactive objects, create a new one 
-            spawnableObject = Instantiate(ObjectToSpawn, SpawnPosition, SpawnRotation);
-
+            spawnableObject = Instantiate(ObjectToSpawn, SpawnPosition, Quaternion.identity);
+            
             if (parentObject != null)
             {
                 spawnableObject.transform.SetParent(parentObject.transform);
@@ -110,7 +110,7 @@ public class ObjectPoolManager : MonoBehaviour
         {
             //if there is an inactive object, reactive it 
             spawnableObject.transform.position = SpawnPosition;
-            spawnableObject.transform.rotation = SpawnRotation;
+            spawnableObject.transform.rotation = Quaternion.identity;
             pool.InactiveObjects.Remove(spawnableObject);
             spawnableObject.SetActive(true);
         }

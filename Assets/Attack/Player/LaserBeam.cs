@@ -4,7 +4,6 @@ public class LaserBeam : MonoBehaviour
 {
     private Transform _transform;
     public GameObject BubbleLaserBeam;
-    private float _damage = 0;
     private Vector2 _scale = Vector2.zero;
     private LayerMask _enemyLayer;
     private LayerMask _worldBorderLayer;
@@ -31,7 +30,6 @@ public class LaserBeam : MonoBehaviour
     private void Start()
     {
         _rayDistance = Mathf.Abs(GameManager.Instance.MinBound.x) + GameManager.Instance.MaxBound.x + _offsetRay;
-        Debug.Log(_rayDistance);
     }
 
     private void Update()
@@ -50,7 +48,7 @@ public class LaserBeam : MonoBehaviour
 
             if (hit.transform.CompareTag("Enemy"))
             {
-                //hit.transform.GetComponent<>
+                //hit.transform.GetComponent<DemonStats>().TakeDamage(PlayerStats.Instance.Damage * 1.5f * Time.deltaTime);
             }
         }
         else
@@ -58,9 +56,6 @@ public class LaserBeam : MonoBehaviour
             Debug.LogWarning("Laser beam collide with nothing");
         }
     }
-
-    public void SetDamage(float damage)
-    { _damage = damage; }
 
     public void Desable()
     {
