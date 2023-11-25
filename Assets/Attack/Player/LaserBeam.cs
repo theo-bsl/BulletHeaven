@@ -40,15 +40,14 @@ public class LaserBeam : MonoBehaviour
         {
             RaycastHit2D hit = colliders[0];
 
-            float height = Vector2.Distance(BubbleLaserBeam.transform.position, hit.transform.position);
-            _scale.y = height;
+            _scale.y = Vector2.Distance(BubbleLaserBeam.transform.position, hit.transform.position);
             _transform.localScale = _scale;
 
             _transform.position = Vector2.Lerp(BubbleLaserBeam.transform.position, hit.point, 0.5f);
 
             if (hit.transform.TryGetComponent(out DemonStats demon))
             {
-                demon.TakeDamage(PlayerStats.Instance.Damage * 1.5f * Time.deltaTime);
+                demon.TakeDamage(PlayerStats.Instance.Damage * 6 * Time.deltaTime);
             }
         }
         else

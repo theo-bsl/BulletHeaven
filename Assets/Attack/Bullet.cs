@@ -34,7 +34,6 @@ public class Bullet : MonoBehaviour
 
     public void SetDirection(Vector3 direction)
     { _direction = direction; }
-
-    public void SetSpeed(float speed)
-    { _speed = speed; }
+    public void SetDamage(float damage)
+    { _damage = damage; }
 }

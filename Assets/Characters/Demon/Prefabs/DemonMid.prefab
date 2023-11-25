@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7629795471246552854}
   - component: {fileID: 6941822175357633752}
   - component: {fileID: 579442945673333104}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DemonMid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,11 +158,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bae0a1c3c8c2c544baadb1f16877b3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life: 100
-  Damage: 0
-  Speed: 15
-  XP: 3
-  Score: 3
+  Life: 50
+  MaxLife: 50
+  TimeBetweenAttacks: 5
+  Speed: 5
+  XP: 25
+  Score: 25
 --- !u!114 &6941822175357633752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3099762b009b4041bdca454eb7e579c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 8560588084396044448, guid: 52104f8cc79132243b794c6eb0db8d60, type: 3}
+  poolType: 6
 --- !u!50 &579442945673333104
 Rigidbody2D:
   serializedVersion: 4

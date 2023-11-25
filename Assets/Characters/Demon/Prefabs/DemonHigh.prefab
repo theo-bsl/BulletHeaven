@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -8298507291635252094}
   - component: {fileID: -2379637290157781991}
   - component: {fileID: -9023805783496260007}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DemonHigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,10 +159,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Life: 100
-  Damage: 0
-  Speed: 15
-  XP: 3
-  Score: 3
+  MaxLife: 100
+  TimeBetweenAttacks: 3
+  Speed: 10
+  XP: 50
+  Score: 50
 --- !u!114 &-2379637290157781991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3099762b009b4041bdca454eb7e579c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 8560588084396044448, guid: a3c18b0f93888bc4fa703949843d6c57, type: 3}
+  poolType: 7
 --- !u!50 &-9023805783496260007
 Rigidbody2D:
   serializedVersion: 4

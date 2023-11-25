@@ -58,8 +58,6 @@ public class PlayerStats : MonoBehaviour
 
     private void LevelUp()
     {
-        Debug.Log("level up");
-
         _xp -= _xpNeededToLevelUp;
         _xpNeededToLevelUp += _xpNeededToLevelUp * _xpNeedMultiplier;
 

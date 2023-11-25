@@ -4,7 +4,7 @@ public class DemonStats : MonoBehaviour
 {
     public float Life = 100;
     public float MaxLife = 100;
-    public float Damage = 0;
+    public int TimeBetweenAttacks = 0;
     public float Speed = 15;
 
     public float XP = 0;
@@ -13,7 +13,6 @@ public class DemonStats : MonoBehaviour
     public void TakeDamage(float damage)
     {
         Life -= damage;
-        Debug.Log(gameObject.name + " life = " + Life);
 
         if (Life <= 0 )
         {

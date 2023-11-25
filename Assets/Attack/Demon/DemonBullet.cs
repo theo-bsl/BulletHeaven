@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class PlayerBullet : Bullet
+public class DemonBullet : Bullet
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out DemonStats demon))
+        if (collision.TryGetComponent(out PlayerStats player))
         {
-            demon.TakeDamage(_damage);
+            player.TakeDamage(_damage);
 
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
