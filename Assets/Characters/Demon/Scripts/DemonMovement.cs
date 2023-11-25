@@ -4,11 +4,16 @@ public class DemonMovement : MonoBehaviour
 {
     private Transform _transform;
     private Vector3 _direction = Vector3.down;
-    private readonly int _speed = 15;
+    private float _speed = 1;
 
     private void Awake()
     {
         _transform = transform;
+    }
+
+    private void Start()
+    {
+        _speed = GetComponent<DemonStats>().Speed;
     }
 
     private void Update()
@@ -17,6 +22,7 @@ public class DemonMovement : MonoBehaviour
 
         if (GameManager.Instance.CheckInScreen(_transform.position))
         {
+            GetComponent<DemonStats>().ResetLife();
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }

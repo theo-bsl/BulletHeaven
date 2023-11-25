@@ -46,9 +46,9 @@ public class LaserBeam : MonoBehaviour
 
             _transform.position = Vector2.Lerp(BubbleLaserBeam.transform.position, hit.point, 0.5f);
 
-            if (hit.transform.CompareTag("Enemy"))
+            if (hit.transform.TryGetComponent(out DemonStats demon))
             {
-                //hit.transform.GetComponent<DemonStats>().TakeDamage(PlayerStats.Instance.Damage * 1.5f * Time.deltaTime);
+                demon.TakeDamage(PlayerStats.Instance.Damage * 1.5f * Time.deltaTime);
             }
         }
         else

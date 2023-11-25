@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 
     private Vector2 _minBound = Vector2.zero;
     private Vector2 _maxBound = Vector2.zero;
-    private int _boundOffset = 10;
+    private int _boundOffset = 7;
 
     private void Awake()
     {

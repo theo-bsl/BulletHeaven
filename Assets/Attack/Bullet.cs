@@ -3,18 +3,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Transform _transform;
-    public float _speed = 100;
+    public float _speed = 1;
     public float _damage = 1;
     private Vector3 _direction = Vector3.zero;
 
     private void Awake()
     {
         _transform = transform;
-    }
-
-    private void Start()
-    {
-        _damage = PlayerStats.Instance.Damage;
     }
 
     private void OnEnable()
@@ -42,17 +37,4 @@ public class Bullet : MonoBehaviour
 
     public void SetSpeed(float speed)
     { _speed = speed; }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("bullet touched an enemy");
-            ObjectPoolManager.ReturnObjectToPool(gameObject);
-        }
-        /*else if (collision.gameObject.CompareTag("WorldBorder"))
-        {
-
-        }*/
-    }
 }

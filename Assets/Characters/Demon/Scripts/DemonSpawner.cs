@@ -44,7 +44,7 @@ public class DemonSpawner : MonoBehaviour
     {
         spawnLimit.x = GameManager.Instance.MinBound.x + 3;
         spawnLimit.y = GameManager.Instance.MaxBound.x - 3;
-        spawnPoint.y = GameManager.Instance.MaxBound.y + 10;
+        spawnPoint.y = GameManager.Instance.MaxBound.y + 6.5f;
     }
 
     private void Update()
