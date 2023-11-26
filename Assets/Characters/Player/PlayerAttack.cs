@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -39,11 +38,10 @@ public class PlayerAttack : MonoBehaviour
                 {
                     bubbleTime = Time.time + waitTimer;
 
-                    GameObject bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _transform.position + _transform.up, Quaternion.identity, ObjectPoolManager.PoolType.PlayerBullet);
+                    GameObject bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _transform.position + _transform.up, ObjectPoolManager.PoolType.PlayerBullet);
                     Bullet bulletComponent = bullet.GetComponent<Bullet>();
                     bulletComponent.SetDirection(_transform.up);
-                    //bulletComponent.SetDamage();
-                    //bulletComponent.SetSpeed();
+                    bulletComponent.SetDamage(PlayerStats.Instance.Damage);
                 }
             }
             else if (attackMode == AttackMode.LaserBeam)

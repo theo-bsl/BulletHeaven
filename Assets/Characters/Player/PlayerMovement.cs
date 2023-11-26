@@ -4,7 +4,6 @@ public class PlayerMovement : MonoBehaviour
 {
     private Transform _transform;
     private Vector3 _direction = Vector3.zero;
-    private readonly int _speed = 15;
 
     private void Awake()
     {
@@ -23,6 +22,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move()
     {
-        _transform.position += _direction * (_speed * Time.deltaTime);
+        _transform.position += _direction * (PlayerStats.Instance.Speed * Time.deltaTime);
     }
 }
