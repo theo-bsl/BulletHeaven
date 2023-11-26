@@ -10,6 +10,11 @@ public class DemonStats : MonoBehaviour
     public float XP = 0;
     public int Score = 0;
 
+    private void OnEnable()
+    {
+        GetComponent<SpriteRenderer>().sortingOrder = Random.Range(-10, 0);
+    }
+
     public void TakeDamage(float damage)
     {
         Life -= damage;
@@ -27,6 +32,7 @@ public class DemonStats : MonoBehaviour
     {
         PlayerStats.Instance.TakeScore(Score);
         PlayerStats.Instance.TakeXp(XP);
+        PlayerStats.Instance.IncreaseNbKill();
 
         Life = MaxLife;
 

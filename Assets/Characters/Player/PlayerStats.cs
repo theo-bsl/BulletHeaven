@@ -16,7 +16,9 @@ public class PlayerStats : MonoBehaviour
     private readonly float _damageMultiplier = 0.2f;
     private readonly float _xpNeedMultiplier = 0.05f;
 
+    private float _startTime = 0;
     private int _score = 0;
+    private int _nbKill = 0;
     private float _xp = 0;
     private float _xpNeededToLevelUp = 100;
     private float _level = 1;
@@ -26,7 +28,9 @@ public class PlayerStats : MonoBehaviour
     public float Damage { get { return _damage; } }
     public float Speed { get { return _speed; } }
     
+    public float StartTime { get { return _startTime; } }
     public float Score { get { return _score; } }
+    public int NbKill { get { return _nbKill; } }
     public float XP { get { return _xp; } }
     public float Level { get { return _level; } }
 
@@ -35,6 +39,11 @@ public class PlayerStats : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+    }
+
+    private void Start()
+    {
+        _startTime = Time.time;
     }
 
     public void TakeDamage(float damage)
@@ -56,6 +65,9 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    public void IncreaseNbKill()
+    { _nbKill += 1; }
+
     private void LevelUp()
     {
         _xp -= _xpNeededToLevelUp;
@@ -71,4 +83,10 @@ public class PlayerStats : MonoBehaviour
 
         _damage += _damage * _damageMultiplier;
     }
+
+    public void StopAttack()
+    { GetComponent<PlayerAttack>().SetCanAttack(false); }
+
+    public void StartAttack()
+    { GetComponent<PlayerAttack>().SetCanAttack(true); }
 }
