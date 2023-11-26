@@ -4,7 +4,7 @@ public class DemonMovement : MonoBehaviour
 {
     private Transform _transform;
     private Vector3 _direction = Vector3.down;
-    private float _speed = 1;
+    [SerializeField] private float _speed = 1;
 
     private void Awake()
     {

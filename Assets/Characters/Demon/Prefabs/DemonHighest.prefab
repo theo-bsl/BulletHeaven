@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 726495280419750532}
   - component: {fileID: 3764986848265278260}
-  - component: {fileID: 2373116063095340337}
   - component: {fileID: 8916688352527095620}
   - component: {fileID: 9181859596439239803}
   - component: {fileID: 1868921333485443979}
+  - component: {fileID: 2373116063095340337}
   - component: {fileID: -5916233406561244766}
   m_Layer: 6
   m_Name: DemonHighest
@@ -89,6 +89,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8916688352527095620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6603931329621014965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c050176009391545a42c162a472670e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 1
+--- !u!114 &9181859596439239803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6603931329621014965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae0a1c3c8c2c544baadb1f16877b3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Life: 200
+  MaxLife: 200
+  TimeBetweenAttacks: 1
+  Speed: 15
+  XP: 100
+  Score: 100
+--- !u!114 &1868921333485443979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6603931329621014965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3099762b009b4041bdca454eb7e579c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 8560588084396044448, guid: b9a9dbe7230ea814d8fdaee99e5c57b7, type: 3}
+  poolType: 8
+  rank: 3
 --- !u!61 &2373116063095340337
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134,50 +180,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8916688352527095620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6603931329621014965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c050176009391545a42c162a472670e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9181859596439239803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6603931329621014965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae0a1c3c8c2c544baadb1f16877b3cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Life: 200
-  MaxLife: 200
-  TimeBetweenAttacks: 1
-  Speed: 15
-  XP: 100
-  Score: 100
---- !u!114 &1868921333485443979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6603931329621014965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3099762b009b4041bdca454eb7e579c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 8560588084396044448, guid: b9a9dbe7230ea814d8fdaee99e5c57b7, type: 3}
-  poolType: 8
 --- !u!50 &-5916233406561244766
 Rigidbody2D:
   serializedVersion: 4
@@ -186,7 +188,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6603931329621014965}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

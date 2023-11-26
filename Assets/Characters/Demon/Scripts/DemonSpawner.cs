@@ -7,17 +7,17 @@ public class DemonSpawner : MonoBehaviour
     private Vector2 spawnPoint = Vector2.zero;
     private Vector2 spawnLimit = Vector2.zero;
     private float _spawnTime = 0;
-    public int _waitSpawn = 2;
+    private int _waitSpawn = 7;
     private bool _isSpawning = false;
 
     public GameObject[] DemonsPrefab = new GameObject[4];
 
     private float[] timeWaves = new float[4]
     {
-        5, //duration of lower-ranking waves
-        20, //duration of intermediate-rank waves
-        30, //duration of higher-ranking waves
-        60  //duration of supreme-ranking waves
+        10, //duration of lower-ranking waves
+        40, //duration of intermediate-rank waves
+        60, //duration of higher-ranking waves
+        120  //duration of supreme-ranking waves
     };
     private int[] minMaxNbDemon = new int[20]
     {
@@ -25,19 +25,19 @@ public class DemonSpawner : MonoBehaviour
         10, 20 ,
 
         //wave mid
-        0, 0 ,
-        0, 0 ,
+        35, 50 ,
+        10, 20 ,
 
         //wave high
-        0, 0 ,
-        0, 0 ,
-        0, 0 ,
+        65, 80 ,
+        35, 50 ,
+        10, 20 ,
 
         //wave highest
-        0, 0 ,
-        0, 0 ,
-        0, 0 ,
-        0, 0 
+        95, 110 ,
+        65, 80 ,
+        35, 50 ,
+        10, 20 
     };
 
     private void Start()
@@ -64,8 +64,9 @@ public class DemonSpawner : MonoBehaviour
         int nbAllDemons = 0;
         int[] nbDemonSpawn = null;
         List<int> indexDemonCanBeSpawn = null;
+        int indexDemon = 0;
 
-        if (playerScore < 100)
+        if (playerScore <= 1000)
         {
             nbDemonsToSpawn = new int[1] { Random.Range(minMaxNbDemon[0], minMaxNbDemon[1]) };
             nbAllDemons = nbDemonsToSpawn[0];
@@ -82,21 +83,23 @@ public class DemonSpawner : MonoBehaviour
             }
             _spawnTime = Time.time + _waitSpawn;
         }
-        else if (playerScore < 300)
+        else if (playerScore <= 5000)
         {
             nbDemonsToSpawn = new int[2] { Random.Range(minMaxNbDemon[2], minMaxNbDemon[3]), Random.Range(minMaxNbDemon[4], minMaxNbDemon[5]) };
             nbAllDemons = nbDemonsToSpawn[0] + nbDemonsToSpawn[1];
+            nbDemonSpawn = new int[2];
             delayBetweenSpawn = timeWaves[1] / nbAllDemons;
             indexDemonCanBeSpawn = new List<int>(1) { 0, 1 };
 
             for (int i = 0; i < nbAllDemons; i++)
             {
-                SpawnDemon(ref indexDemonCanBeSpawn, ref nbDemonsToSpawn, ref nbDemonSpawn, ObjectPoolManager.PoolType.DemonMid);
+                indexDemon = Random.Range(0, 100) < 70 ? 0 : 1;
+                SpawnDemon(indexDemon, ref indexDemonCanBeSpawn, ref nbDemonsToSpawn, ref nbDemonSpawn, ObjectPoolManager.PoolType.DemonMid);
                 yield return new WaitForSecondsRealtime(delayBetweenSpawn);
             }
             _spawnTime = Time.time + _waitSpawn;
         }
-        else if (playerScore < 500)
+        else if (playerScore <= 15000)
         {
             nbDemonsToSpawn = new int[3]
             {
@@ -105,32 +108,38 @@ public class DemonSpawner : MonoBehaviour
                 Random.Range(minMaxNbDemon[10], minMaxNbDemon[11])
             };
             nbAllDemons = nbDemonsToSpawn[0] + nbDemonsToSpawn[1] + nbDemonsToSpawn[2];
+            nbDemonSpawn = new int[3];
             delayBetweenSpawn = timeWaves[2] / nbAllDemons;
             indexDemonCanBeSpawn = new List<int>(1) { 0, 1, 2 };
 
             for (int i = 0; i < nbAllDemons; i++)
             {
-                SpawnDemon(ref indexDemonCanBeSpawn, ref nbDemonsToSpawn, ref nbDemonSpawn, ObjectPoolManager.PoolType.DemonHigh);
+                int pourcent = Random.Range(0, 100);
+                indexDemon = pourcent < 55 ? 0 : pourcent < 85 ? 1 : 2;
+                SpawnDemon(indexDemon, ref indexDemonCanBeSpawn, ref nbDemonsToSpawn, ref nbDemonSpawn, ObjectPoolManager.PoolType.DemonHigh);
                 yield return new WaitForSecondsRealtime(delayBetweenSpawn);
             }
             _spawnTime = Time.time + _waitSpawn;
         }
-        else if (playerScore < 700)
+        else if (playerScore <= 33000)
         {
             nbDemonsToSpawn = new int[4] 
             { 
-                Random.Range(minMaxNbDemon[6], minMaxNbDemon[7]), 
-                Random.Range(minMaxNbDemon[8], minMaxNbDemon[9]), 
-                Random.Range(minMaxNbDemon[10], minMaxNbDemon[11]), 
-                Random.Range(minMaxNbDemon[12], minMaxNbDemon[13]) 
+                Random.Range(minMaxNbDemon[12], minMaxNbDemon[13]), 
+                Random.Range(minMaxNbDemon[14], minMaxNbDemon[15]), 
+                Random.Range(minMaxNbDemon[16], minMaxNbDemon[17]), 
+                Random.Range(minMaxNbDemon[18], minMaxNbDemon[19]) 
             };
             nbAllDemons = nbDemonsToSpawn[0] + nbDemonsToSpawn[1] + nbDemonsToSpawn[2] + nbDemonsToSpawn[3];
+            nbDemonSpawn = new int[4];
             delayBetweenSpawn = timeWaves[3] / nbAllDemons;
             indexDemonCanBeSpawn = new List<int>(1) { 0, 1, 2, 3 };
 
             for (int i = 0; i < nbAllDemons; i++)
             {
-                SpawnDemon(ref indexDemonCanBeSpawn, ref nbDemonsToSpawn, ref nbDemonSpawn, ObjectPoolManager.PoolType.DemonHighest);
+                int pourcent = Random.Range(0, 100);
+                indexDemon = pourcent < 50 ? 0 : pourcent < 75 ? 1 : pourcent < 90 ? 2 : 3;
+                SpawnDemon(indexDemon, ref indexDemonCanBeSpawn, ref nbDemonsToSpawn, ref nbDemonSpawn, ObjectPoolManager.PoolType.DemonHighest);
                 yield return new WaitForSecondsRealtime(delayBetweenSpawn);
             }
             _spawnTime = Time.time + _waitSpawn;
@@ -139,20 +148,20 @@ public class DemonSpawner : MonoBehaviour
         {
             spawnPoint.x = Random.Range(spawnLimit.x, spawnLimit.y);
 
-            int indexDemon = Random.Range(2, 3 + 1);
+            //int indexDemon = Random.Range(2, 3 + 1);
+            //int indexDemon = Random.value < 0.6f ? 2 : 3;
+            indexDemon = Random.Range(0, 100) < 66 ? 2 : 3;
 
             ObjectPoolManager.SpawnObject(DemonsPrefab[indexDemon], spawnPoint, ObjectPoolManager.PoolType.DemonLow);
 
-            _spawnTime = Time.time + 1;
+            _spawnTime = Time.time + 0.5f;
         }
         _isSpawning = false;
     }
 
-    private void SpawnDemon(ref List<int> indexDemonCanBeSpawn, ref int[] nbDemonsToSpawn, ref int[] nbDemonSpawn, ObjectPoolManager.PoolType poolType)
+    private void SpawnDemon(int indexDemon, ref List<int> indexDemonCanBeSpawn, ref int[] nbDemonsToSpawn, ref int[] nbDemonSpawn, ObjectPoolManager.PoolType poolType)
     {
         spawnPoint.x = Random.Range(spawnLimit.x, spawnLimit.y);
-
-        int indexDemon = Random.Range(0, indexDemonCanBeSpawn.Count);
 
         ObjectPoolManager.SpawnObject(DemonsPrefab[indexDemon], spawnPoint, poolType);
 

@@ -29,11 +29,18 @@ public class Bullet : MonoBehaviour
 
     private void Move()
     {
-        _transform.position += _direction * _speed * Time.deltaTime;
+        _transform.position += _direction * (_speed * Time.deltaTime);
     }
 
     public void SetDirection(Vector3 direction)
     { _direction = direction; }
+
+    public void SetDirection(float angle)
+    {
+        _direction.x = Mathf.Cos(angle * Mathf.Deg2Rad);
+        _direction.y = Mathf.Sin(angle * Mathf.Deg2Rad);
+    }
+
     public void SetDamage(float damage)
     { _damage = damage; }
 }
