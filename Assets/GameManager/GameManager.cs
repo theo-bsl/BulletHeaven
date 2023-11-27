@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
     private Vector2 _maxBound = Vector2.zero;
     private int _boundOffset = 7;
 
+    public GameObject pauseMenu;
+    public GameObject gameOverMenu;
+    private bool _isFinish = false;
+
     private void Awake()
     {
         if(Instance == null)
@@ -19,9 +23,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerStats.Instance.Life <= 0)
+        if (PlayerStats.Instance.Life <= 0 && !_isFinish)
         {
-
+            _isFinish = true;
+            PausesGame();
+            GameOver();
         }
     }
 
@@ -45,6 +51,20 @@ public class GameManager : MonoBehaviour
         }
         else
             return false;
+    }
+
+    public void PausesGame()
+    {
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+        Cursor.lockState = Cursor.lockState == CursorLockMode.None ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !Cursor.visible;
+    }
+
+    private void GameOver()
+    {
+        gameOverMenu.SetActive(true);
+        PlayerStats.Instance.StopAttack();
     }
 
     public Vector2 MinBound { get { return _minBound; } }

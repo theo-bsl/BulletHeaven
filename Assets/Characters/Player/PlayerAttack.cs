@@ -6,6 +6,7 @@ public class PlayerAttack : MonoBehaviour
     private float waitTimer = 0.2f;
     private float bubbleTime = 0;
     private bool _isAttacking = false;
+    private bool _canAttack = true;
 
     public GameObject bulletPrefab;
     public GameObject LaserBeam;
@@ -30,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        if (_isAttacking)
+        if (_canAttack && _isAttacking)
         {
             if (attackMode == AttackMode.Bubble)
             {
@@ -38,7 +39,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     bubbleTime = Time.time + waitTimer;
 
-                    GameObject bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _transform.position + _transform.up, ObjectPoolManager.PoolType.PlayerBullet);
+                    GameObject bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _transform.position + _transform.up * 3, ObjectPoolManager.PoolType.PlayerBullet);
                     Bullet bulletComponent = bullet.GetComponent<Bullet>();
                     bulletComponent.SetDirection(_transform.up);
                     bulletComponent.SetDamage(PlayerStats.Instance.Damage);
@@ -63,4 +64,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void SetIsAttacking(bool isAttacking)
     { _isAttacking = isAttacking;}
+
+    public void SetCanAttack(bool CanAttack)
+    { _canAttack = CanAttack; }
 }

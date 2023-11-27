@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponent<SpriteRenderer>().sortingOrder = Random.Range(0, 10);
+        GetComponent<SpriteRenderer>().sortingOrder = Random.Range(-10, 0);
     }
 
     private void Update()
