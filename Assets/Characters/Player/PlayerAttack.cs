@@ -39,7 +39,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     bubbleTime = Time.time + waitTimer;
 
-                    GameObject bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _transform.position + _transform.up, ObjectPoolManager.PoolType.PlayerBullet);
+                    GameObject bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _transform.position + _transform.up * 3, ObjectPoolManager.PoolType.PlayerBullet);
                     Bullet bulletComponent = bullet.GetComponent<Bullet>();
                     bulletComponent.SetDirection(_transform.up);
                     bulletComponent.SetDamage(PlayerStats.Instance.Damage);

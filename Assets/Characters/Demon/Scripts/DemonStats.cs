@@ -35,6 +35,7 @@ public class DemonStats : MonoBehaviour
         PlayerStats.Instance.IncreaseNbKill();
 
         Life = MaxLife;
+        GetComponent<DemonAttack>().Death();
 
         ObjectPoolManager.ReturnObjectToPool(gameObject);
     }

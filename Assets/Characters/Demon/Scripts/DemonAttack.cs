@@ -38,9 +38,6 @@ public class DemonAttack : MonoBehaviour
     {
         if (Time.time > _attackTime)
         {
-            /*GameObject bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _transform.position - _transform.up, poolType);
-            bullet.GetComponent<Bullet>().SetDirection(-_transform.up);*/
-
             if (rank == DemonRank.Low)
             {
                 bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _transform.position - _transform.up, poolType);
@@ -81,5 +78,10 @@ public class DemonAttack : MonoBehaviour
 
             _attackTime = Time.time + _waitTime;
         }
+    }
+
+    public void Death()
+    {
+        _attackTime = 0;
     }
 }

@@ -24,7 +24,9 @@ public class PlayerStats : MonoBehaviour
     private float _level = 1;
 
     public float Life { get { return _life; } }
+    public float MaxLife { get { return _maxLife; } }
     public float Stamina { get { return _stamina; } }
+    public float MaxStamina { get { return _maxStamina; } }
     public float Damage { get { return _damage; } }
     public float Speed { get { return _speed; } }
     
@@ -32,6 +34,7 @@ public class PlayerStats : MonoBehaviour
     public float Score { get { return _score; } }
     public int NbKill { get { return _nbKill; } }
     public float XP { get { return _xp; } }
+    public float XpNeededToLevelUp { get {  return _xpNeededToLevelUp; } }
     public float Level { get { return _level; } }
 
 
