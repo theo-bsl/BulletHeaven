@@ -44,7 +44,7 @@ public class LaserBeam : MonoBehaviour
             {
                 RaycastHit2D hit = colliders[0];
 
-                _scale.y = Vector2.Distance(BubbleLaserBeam.transform.position, hit.transform.position);
+                _scale.y = Vector2.Distance(BubbleLaserBeam.transform.position, hit.point);
                 _transform.localScale = _scale;
 
                 _transform.position = Vector2.Lerp(BubbleLaserBeam.transform.position, hit.point, 0.5f);
