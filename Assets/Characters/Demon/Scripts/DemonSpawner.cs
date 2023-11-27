@@ -66,7 +66,7 @@ public class DemonSpawner : MonoBehaviour
         List<int> indexDemonCanBeSpawn = null;
         int indexDemon = 0;
 
-        if (playerScore <= 1000)
+        if (playerScore <= WaveManager.MaxScoreWave1)
         {
             nbDemonsToSpawn = new int[1] { Random.Range(minMaxNbDemon[0], minMaxNbDemon[1]) };
             nbAllDemons = nbDemonsToSpawn[0];
@@ -83,7 +83,7 @@ public class DemonSpawner : MonoBehaviour
             }
             _spawnTime = Time.time + _waitSpawn;
         }
-        else if (playerScore <= 5000)
+        else if (playerScore <= WaveManager.MaxScoreWave2)
         {
             nbDemonsToSpawn = new int[2] { Random.Range(minMaxNbDemon[2], minMaxNbDemon[3]), Random.Range(minMaxNbDemon[4], minMaxNbDemon[5]) };
             nbAllDemons = nbDemonsToSpawn[0] + nbDemonsToSpawn[1];
@@ -99,7 +99,7 @@ public class DemonSpawner : MonoBehaviour
             }
             _spawnTime = Time.time + _waitSpawn;
         }
-        else if (playerScore <= 15000)
+        else if (playerScore <= WaveManager.MaxScoreWave3)
         {
             nbDemonsToSpawn = new int[3]
             {
@@ -121,7 +121,7 @@ public class DemonSpawner : MonoBehaviour
             }
             _spawnTime = Time.time + _waitSpawn;
         }
-        else if (playerScore <= 33000)
+        else if (playerScore <= WaveManager.MaxScoreWave4)
         {
             nbDemonsToSpawn = new int[4] 
             { 
