@@ -34,30 +34,25 @@ public class LaserBeam : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerStats.Instance.Stamina > 0)
+        var colliders = Physics2D.RaycastAll(BubbleLaserBeam.transform.position, _transform.up, _rayDistance, _enemyLayer | _worldBorderLayer);
+
+        if (colliders.Length > 0)
         {
-            PlayerStats.Instance.LoseStamina(10 * Time.deltaTime);
+            RaycastHit2D hit = colliders[0];
 
-            var colliders = Physics2D.RaycastAll(BubbleLaserBeam.transform.position, _transform.up, _rayDistance, _enemyLayer | _worldBorderLayer);
+            _scale.y = Vector2.Distance(BubbleLaserBeam.transform.position, hit.point);
+            _transform.localScale = _scale;
 
-            if (colliders.Length > 0)
+            _transform.position = Vector2.Lerp(BubbleLaserBeam.transform.position, hit.point, 0.5f);
+
+            if (hit.transform.TryGetComponent(out DemonStats demon))
             {
-                RaycastHit2D hit = colliders[0];
-
-                _scale.y = Vector2.Distance(BubbleLaserBeam.transform.position, hit.point);
-                _transform.localScale = _scale;
-
-                _transform.position = Vector2.Lerp(BubbleLaserBeam.transform.position, hit.point, 0.5f);
-
-                if (hit.transform.TryGetComponent(out DemonStats demon))
-                {
-                    demon.TakeDamage(PlayerStats.Instance.Damage * 6 * Time.deltaTime);
-                }
+                demon.TakeDamage(PlayerStats.Instance.Damage * 6 * Time.deltaTime);
             }
-            else
-            {
-                Debug.LogWarning("Laser beam collide with nothing");
-            }
+        }
+        else
+        {
+            Debug.LogWarning("Laser beam collide with nothing");
         }
     }
 

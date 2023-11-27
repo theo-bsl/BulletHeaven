@@ -69,4 +69,5 @@ public class GameManager : MonoBehaviour
 
     public Vector2 MinBound { get { return _minBound; } }
     public Vector2 MaxBound { get { return _maxBound; } }
+    public int BoundOffset { get { return _boundOffset; } }
 }

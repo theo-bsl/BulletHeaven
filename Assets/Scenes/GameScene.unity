@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 13572741}
   - component: {fileID: 13572740}
   m_Layer: 5
-  m_Name: Value
+  m_Name: KillValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -861,7 +861,7 @@ GameObject:
   - component: {fileID: 193354461}
   - component: {fileID: 193354460}
   m_Layer: 5
-  m_Name: Value
+  m_Name: ScoreValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3278,6 +3278,9 @@ MonoBehaviour:
   stamina: {fileID: 1497297756}
   xp: {fileID: 1737733035}
   level: {fileID: 764637821}
+  time: {fileID: 930785023}
+  score: {fileID: 193354460}
+  kill: {fileID: 13572740}
   maxLife: {fileID: 695950830}
   maxStamina: {fileID: 60147643}
   maxXp: {fileID: 1474500399}
@@ -4622,6 +4625,7 @@ Transform:
   - {fileID: 1668466325}
   - {fileID: 1545446925}
   - {fileID: 809276924}
+  - {fileID: 1816709881}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1316100918
@@ -6290,6 +6294,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1799680019}
   m_CullTransparentMesh: 1
+--- !u!1 &1816709880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1816709881}
+  - component: {fileID: 1816709882}
+  m_Layer: 0
+  m_Name: BonusSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1816709881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816709880}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1305180310}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1816709882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816709880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 997c3cabbcac47545b13a010541361ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonusPrefabs:
+  - {fileID: 38170890933637229, guid: 678815c0cdcacf04b92de8b8d0bb4641, type: 3}
+  - {fileID: 7970728109941312102, guid: c777cc92d14ed2849854b273a72a025b, type: 3}
+  - {fileID: 1303600723248837927, guid: 829bd63dba314f1468179c81f18db6e3, type: 3}
+  - {fileID: 2017204944686965702, guid: 4b8f33231f41d43439757ea283eb4322, type: 3}
 --- !u!1 &1855446634
 GameObject:
   m_ObjectHideFlags: 0

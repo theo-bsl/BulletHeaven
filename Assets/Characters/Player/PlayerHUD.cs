@@ -11,6 +11,11 @@ public class PlayerHUD : MonoBehaviour
     public Image xp;
     public TextMeshProUGUI level;
 
+    public TextMeshProUGUI time;
+    private float _startTime = 0;
+    public TextMeshProUGUI score;
+    public TextMeshProUGUI kill;
+
     public TextMeshProUGUI maxLife;
     private string s_maxlife;
     public TextMeshProUGUI maxStamina;
@@ -30,6 +35,11 @@ public class PlayerHUD : MonoBehaviour
         s_maxdamage = damage.text;
     }
 
+    private void Start()
+    {
+        _startTime = Time.time;
+    }
+
     private void Update()
     {
         life.fillAmount = playerStats.Life / playerStats.MaxLife;
@@ -37,6 +47,10 @@ public class PlayerHUD : MonoBehaviour
         xp.fillAmount = playerStats.XP / playerStats.XpNeededToLevelUp;
 
         level.text = playerStats.Level.ToString();
+
+        time.text = ((int)(Time.time - _startTime)).ToString();
+        score.text = playerStats.Score.ToString();
+        kill.text = playerStats.NbKill.ToString();
 
         //--------------------------------------
 

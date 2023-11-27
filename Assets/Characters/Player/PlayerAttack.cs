@@ -5,6 +5,7 @@ public class PlayerAttack : MonoBehaviour
     private Transform _transform;
     private float waitTimer = 0.2f;
     private float bubbleTime = 0;
+    private float _nbLoseStamina = 10;
     private bool _isAttacking = false;
     private bool _canAttack = true;
 
@@ -31,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        if (_canAttack && _isAttacking)
+        if (_canAttack && _isAttacking && PlayerStats.Instance.Stamina > 0)
         {
             if (attackMode == AttackMode.Bubble)
             {
@@ -47,6 +48,8 @@ public class PlayerAttack : MonoBehaviour
             }
             else if (attackMode == AttackMode.LaserBeam)
             {
+                PlayerStats.Instance.LoseStamina(_nbLoseStamina * Time.deltaTime);
+
                 LaserBeam.SetActive(true);
             }
         }

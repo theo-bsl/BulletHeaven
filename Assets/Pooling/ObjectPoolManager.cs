@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 public class ObjectPoolManager : MonoBehaviour
@@ -21,6 +20,8 @@ public class ObjectPoolManager : MonoBehaviour
     private static GameObject DemonBulletHighEmpty;
     private static GameObject DemonBulletHighestEmpty;
 
+    private static GameObject BonusEmpty;
+
     public enum PoolType
     {
         PlayerBullet,
@@ -35,9 +36,10 @@ public class ObjectPoolManager : MonoBehaviour
         DemonBulletHigh,
         DemonBulletHighest,
 
+        Bonus,
+
         None
     }
-    public static PoolType poolingType;
 
     private void Awake()
     {
@@ -76,6 +78,9 @@ public class ObjectPoolManager : MonoBehaviour
 
         DemonBulletHighestEmpty = new GameObject("DemonBulletHighest");
         DemonBulletHighestEmpty.transform.SetParent(ObjectPoolEmptyHolder.transform);
+
+        BonusEmpty = new GameObject("Bonus");
+        BonusEmpty.transform.SetParent(ObjectPoolEmptyHolder.transform);
 
     }
 
@@ -158,6 +163,9 @@ public class ObjectPoolManager : MonoBehaviour
             case PoolType.DemonBulletHigh: return DemonBulletHighEmpty;
 
             case PoolType.DemonBulletHighest: return DemonBulletHighestEmpty;
+
+
+            case PoolType.Bonus: return BonusEmpty;
 
 
             case PoolType.None : return null;
