@@ -32,8 +32,6 @@ public class PlayerStats : MonoBehaviour
 
     private float _xpNeededToLevelUp = 100;
 
-    private float _startTime = 0;
-
     #region Get
     public float Life { get { return _life; } }
     public float MaxLife { get { return _maxLife; } }
@@ -42,7 +40,7 @@ public class PlayerStats : MonoBehaviour
     public float Damage { get { return _damage; } }
     public float Speed { get { return _speed; } }
     
-    public float StartTime { get { return _startTime; } }
+
     public float Score { get { return _score; } }
     public int NbKill { get { return _nbKill; } }
     public float XP { get { return _xp; } }
@@ -57,22 +55,23 @@ public class PlayerStats : MonoBehaviour
             Instance = this;
     }
 
-    private void Start()
-    {
-        _startTime = Time.time;
-    }
-
     public void TakeDamage(float damage)
     { _life -= damage; _life = _life < 0 ? 0 : _life; }
 
     public void LoseStamina(float stamina)
     {
         if (_canLoseStamina)
+        {
             _stamina -= stamina;
+            _stamina = _stamina < 0 ? 0 : _stamina;
+        }
     }
 
     public void TakeScore(int score)
-    { _score += score; }
+    { 
+        _score += score;
+        GameManager.Instance.UpdatePhase();
+    }
 
     public void TakeXp(float xp)
     {

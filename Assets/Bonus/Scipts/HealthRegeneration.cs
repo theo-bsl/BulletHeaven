@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HealthRegeneration : MonoBehaviour
+public class HealthRegeneration : Bonus
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {

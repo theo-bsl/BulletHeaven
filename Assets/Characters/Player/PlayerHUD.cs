@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour
 {
-    private PlayerStats playerStats;
+    private PlayerStats _playerStats;
 
     public Image life;
     public Image stamina;
@@ -27,7 +27,7 @@ public class PlayerHUD : MonoBehaviour
 
     private void Awake()
     {
-        playerStats = GetComponent<PlayerStats>();
+        _playerStats = PlayerStats.Instance;
 
         s_maxlife = maxLife.text;
         s_maxstamina = maxStamina.text;
@@ -42,21 +42,21 @@ public class PlayerHUD : MonoBehaviour
 
     private void Update()
     {
-        life.fillAmount = playerStats.Life / playerStats.MaxLife;
-        stamina.fillAmount = playerStats.Stamina / playerStats.MaxStamina;
-        xp.fillAmount = playerStats.XP / playerStats.XpNeededToLevelUp;
+        life.fillAmount = _playerStats.Life / _playerStats.MaxLife;
+        stamina.fillAmount = _playerStats.Stamina / _playerStats.MaxStamina;
+        xp.fillAmount = _playerStats.XP / _playerStats.XpNeededToLevelUp;
 
-        level.text = playerStats.Level.ToString();
+        level.text = _playerStats.Level.ToString();
 
         time.text = ((int)(Time.time - _startTime)).ToString();
-        score.text = playerStats.Score.ToString();
-        kill.text = playerStats.NbKill.ToString();
+        score.text = _playerStats.Score.ToString();
+        kill.text = _playerStats.NbKill.ToString();
 
         //--------------------------------------
 
-        maxLife.text = s_maxlife + playerStats.MaxLife.ToString();
-        maxStamina.text = s_maxstamina + playerStats.MaxStamina.ToString();
-        maxXp.text = s_maxxp + playerStats.XpNeededToLevelUp.ToString();
-        damage.text = s_maxdamage + playerStats.Damage.ToString();
+        maxLife.text = s_maxlife + _playerStats.MaxLife.ToString();
+        maxStamina.text = s_maxstamina + _playerStats.MaxStamina.ToString();
+        maxXp.text = s_maxxp + _playerStats.XpNeededToLevelUp.ToString();
+        damage.text = s_maxdamage + _playerStats.Damage.ToString();
     }
 }

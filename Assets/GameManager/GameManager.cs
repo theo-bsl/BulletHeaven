@@ -1,5 +1,7 @@
+using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +15,10 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverMenu;
     private bool _isFinish = false;
     private bool _isPaused = false;
+    
+    private float _startTime = 0;
+
+    [SerializeField] private WaveManager.Phase _phase = WaveManager.Phase.low;
 
     private void Awake()
     {
@@ -21,6 +27,11 @@ public class GameManager : MonoBehaviour
 
         _minBound = Camera.main.ViewportToWorldPoint(Vector2.zero);
         _maxBound = Camera.main.ViewportToWorldPoint(Vector2.one);
+    }
+
+    private void Start()
+    {
+        _startTime = Time.time;
     }
 
     private void Update()
@@ -56,6 +67,25 @@ public class GameManager : MonoBehaviour
             return false;
     }
 
+    public void UpdatePhase()
+    {
+        if (PlayerStats.Instance.Score >= ((float)_phase))
+        {
+            _phase = Enum.GetValues(typeof(WaveManager.Phase)).Cast<WaveManager.Phase>().SkipWhile(e => e != _phase).Skip(1).First();
+
+            if (_phase == WaveManager.Phase.mid)
+            {
+                StartCoroutine(LaunchBonusSpawner());
+            }
+        }
+    }
+
+    private IEnumerator LaunchBonusSpawner()
+    {
+        yield return new WaitUntil(() => !DemonSpawner.Instance.IsSpawning);
+        BonusSpawner.Instance.CanSpawn = true;
+    }
+
     public void PausesGame()
     {
         _isPaused = !_isPaused;
@@ -89,4 +119,6 @@ public class GameManager : MonoBehaviour
     public Vector2 MinBound { get { return _minBound; } }
     public Vector2 MaxBound { get { return _maxBound; } }
     public int BoundOffset { get { return _boundOffset; } }
+    public float StartTime { get { return _startTime; } }
+    public WaveManager.Phase Phase { get { return _phase; } }
 }

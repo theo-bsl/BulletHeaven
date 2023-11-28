@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class XpBoost : MonoBehaviour
+public class XpBoost : Bonus
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StaminaRegeneration : MonoBehaviour
+public class StaminaRegeneration : Bonus
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {

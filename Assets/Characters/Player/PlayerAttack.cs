@@ -60,6 +60,10 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            LaserBeam.SetActive(false);
+        }
     }
 
     public void SwitchAttackMode()

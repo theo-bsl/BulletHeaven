@@ -3,13 +3,22 @@ using UnityEngine;
 
 public class BonusSpawner : MonoBehaviour
 {
+    public static BonusSpawner Instance;
+
     private Vector2 spawnPoint = Vector2.zero;
     private Vector2 _minBound = Vector2.zero;
     private Vector2 _maxBound = Vector2.zero;
     private float _spawnTime = 0;
     private int _waitSpawn = 10;
+    private bool _canSpawn = false;
 
     public List<GameObject> bonusPrefabs = new List<GameObject>(5);
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
 
     private void Start()
     {
@@ -30,28 +39,36 @@ public class BonusSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time > _spawnTime)
+        if (_canSpawn)
         {
-            if (Random.Range(0, 100) < 50)
+            if (Time.time > _spawnTime)
             {
-                float playerScore = PlayerStats.Instance.Score;
-                SetSpawnPoint();
+                if (Random.Range(0, 100) < 50)
+                {
+                    SetSpawnPoint();
+                    SpawnBonus();
+                }
 
-                if (WaveManager.MaxScoreWave1 < playerScore && playerScore < WaveManager.MaxScoreWave2)
-                {
-                    ObjectPoolManager.SpawnObject(bonusPrefabs[Random.Range(0, 1 + 1)], spawnPoint, ObjectPoolManager.PoolType.Bonus);
-                }
-                else if (WaveManager.MaxScoreWave2 < playerScore && playerScore < WaveManager.MaxScoreWave3)
-                {
-                    ObjectPoolManager.SpawnObject(bonusPrefabs[Random.Range(0, 3 + 1)], spawnPoint, ObjectPoolManager.PoolType.Bonus);
-                }
-                else if (WaveManager.MaxScoreWave3 < playerScore)
-                {
-                    ObjectPoolManager.SpawnObject(bonusPrefabs[Random.Range(0, 4 + 1)], spawnPoint, ObjectPoolManager.PoolType.Bonus);
-                }
+                _spawnTime = Time.time + _waitSpawn;
             }
+        }
+    }
 
-            _spawnTime = Time.time + _waitSpawn;
+    private void SpawnBonus()
+    {
+        var phase = GameManager.Instance.Phase;
+
+        if (phase == WaveManager.Phase.mid)
+        {
+            ObjectPoolManager.SpawnObject(bonusPrefabs[Random.Range(0, 1 + 1)], spawnPoint, ObjectPoolManager.PoolType.Bonus);
+        }
+        else if (phase == WaveManager.Phase.high)
+        {
+            ObjectPoolManager.SpawnObject(bonusPrefabs[Random.Range(0, 3 + 1)], spawnPoint, ObjectPoolManager.PoolType.Bonus);
+        }
+        else if (phase >= WaveManager.Phase.highest)
+        {
+            ObjectPoolManager.SpawnObject(bonusPrefabs[Random.Range(0, 4 + 1)], spawnPoint, ObjectPoolManager.PoolType.Bonus);
         }
     }
 
@@ -60,4 +77,6 @@ public class BonusSpawner : MonoBehaviour
         spawnPoint.x = Random.Range(_minBound.x, _maxBound.x);
         spawnPoint.y = Random.Range(_minBound.y, _maxBound.y);
     }
+
+    public bool CanSpawn {  get { return _canSpawn; } set { _canSpawn = value; } }
 }
