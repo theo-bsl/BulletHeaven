@@ -6,12 +6,20 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerRotation playerRotation;
     private PlayerAttack PlayerAttack;
+    private PlayerInput playerInput;
 
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         playerRotation = GetComponent<PlayerRotation>();
         PlayerAttack = GetComponent<PlayerAttack>();
+
+        playerInput = GetComponent<PlayerInput>();
+
+        #if !UNITY_EDITOR
+        UpdateBinding(playerInput.currentActionMap, "Pause", "<Keyboard>/escape");
+        #endif
+
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -40,4 +48,29 @@ public class PlayerController : MonoBehaviour
     {
         PlayerAttack.SetIsAttacking(context.ReadValueAsButton());
     }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            GameManager.Instance.PausesGame();
+    }
+
+    private void UpdateBinding(InputActionMap actionMap, string actionName, string overridePath)
+    {
+        InputBinding newBinding = new InputBinding();
+        int index = 0;
+        foreach (InputBinding inputBinding in actionMap.bindings)
+        {
+            if (inputBinding.action.Equals(actionName))
+            {
+                newBinding = inputBinding;
+                newBinding.overridePath = overridePath;
+                break;
+            }
+
+            index++;
+        }
+        actionMap.ApplyBindingOverride(index, newBinding);
+    }
+
 }

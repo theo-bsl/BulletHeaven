@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject gameOverMenu;
     private bool _isFinish = false;
+    private bool _isPaused = false;
 
     private void Awake()
     {
@@ -26,7 +28,8 @@ public class GameManager : MonoBehaviour
         if (PlayerStats.Instance.Life <= 0 && !_isFinish)
         {
             _isFinish = true;
-            PausesGame();
+            SwitchTime();
+            SwitchCursor();
             GameOver();
         }
     }
@@ -55,8 +58,24 @@ public class GameManager : MonoBehaviour
 
     public void PausesGame()
     {
-        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        _isPaused = !_isPaused;
+        pauseMenu.SetActive(_isPaused);
+        SwitchTime();
+        SwitchCursor();
+
+        if (_isPaused) 
+            PlayerStats.Instance.StopAttack();
+        else 
+            PlayerStats.Instance.StartAttack();
+    }
+
+    public void SwitchTime()
+    {
         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+    }
+
+    public void SwitchCursor()
+    {
         Cursor.lockState = Cursor.lockState == CursorLockMode.None ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = !Cursor.visible;
     }

@@ -79,7 +79,7 @@ public class DemonSpawner : MonoBehaviour
 
                 ObjectPoolManager.SpawnObject(DemonsPrefab[indexDemonCanBeSpawn[0]], spawnPoint, ObjectPoolManager.PoolType.DemonLow);
 
-                yield return new WaitForSecondsRealtime(delayBetweenSpawn);
+                yield return new WaitForSeconds(delayBetweenSpawn);
             }
             _spawnTime = Time.time + _waitSpawn;
         }
@@ -95,7 +95,7 @@ public class DemonSpawner : MonoBehaviour
             {
                 indexDemon = Random.Range(0, 100) < 70 ? 0 : 1;
                 SpawnDemon(indexDemon, ref indexDemonCanBeSpawn, ref nbDemonsToSpawn, ref nbDemonSpawn, ObjectPoolManager.PoolType.DemonMid);
-                yield return new WaitForSecondsRealtime(delayBetweenSpawn);
+                yield return new WaitForSeconds(delayBetweenSpawn);
             }
             _spawnTime = Time.time + _waitSpawn;
         }
@@ -117,7 +117,7 @@ public class DemonSpawner : MonoBehaviour
                 int pourcent = Random.Range(0, 100);
                 indexDemon = pourcent < 55 ? 0 : pourcent < 85 ? 1 : 2;
                 SpawnDemon(indexDemon, ref indexDemonCanBeSpawn, ref nbDemonsToSpawn, ref nbDemonSpawn, ObjectPoolManager.PoolType.DemonHigh);
-                yield return new WaitForSecondsRealtime(delayBetweenSpawn);
+                yield return new WaitForSeconds(delayBetweenSpawn);
             }
             _spawnTime = Time.time + _waitSpawn;
         }
@@ -140,7 +140,7 @@ public class DemonSpawner : MonoBehaviour
                 int pourcent = Random.Range(0, 100);
                 indexDemon = pourcent < 50 ? 0 : pourcent < 75 ? 1 : pourcent < 90 ? 2 : 3;
                 SpawnDemon(indexDemon, ref indexDemonCanBeSpawn, ref nbDemonsToSpawn, ref nbDemonSpawn, ObjectPoolManager.PoolType.DemonHighest);
-                yield return new WaitForSecondsRealtime(delayBetweenSpawn);
+                yield return new WaitForSeconds(delayBetweenSpawn);
             }
             _spawnTime = Time.time + _waitSpawn;
         }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1969209848870667120}
   - component: {fileID: 3608299258186273574}
   - component: {fileID: 8998184689590422820}
+  - component: {fileID: -7691017090067123640}
   m_Layer: 0
   m_Name: EnergyBoost
   m_TagString: Untagged
@@ -130,3 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.5, y: 2.5}
   m_EdgeRadius: 0
+--- !u!114 &-7691017090067123640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303600723248837927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03e7650623cfa74a81421eff1c92eb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

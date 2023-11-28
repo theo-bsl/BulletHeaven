@@ -995,7 +995,7 @@ GameObject:
   - component: {fileID: 236154226}
   - component: {fileID: 236154225}
   m_Layer: 5
-  m_Name: Value
+  m_Name: TimeValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1017,7 +1017,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 110.89, y: 490}
+  m_AnchoredPosition: {x: 122.7, y: 490}
   m_SizeDelta: {x: 221.77, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &236154225
@@ -3088,10 +3088,10 @@ MonoBehaviour:
     m_ActionName: Game/SwitchAttackMode[/Keyboard/capsLock]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1664380193}
-        m_TargetAssemblyTypeName: ButtonGameMenu, Assembly-CSharp
-        m_MethodName: ButtonPauseResume
-        m_Mode: 1
+      - m_Target: {fileID: 908675131}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3278,7 +3278,7 @@ MonoBehaviour:
   stamina: {fileID: 1497297756}
   xp: {fileID: 1737733035}
   level: {fileID: 764637821}
-  time: {fileID: 930785023}
+  time: {fileID: 236154225}
   score: {fileID: 193354460}
   kill: {fileID: 13572740}
   maxLife: {fileID: 695950830}
@@ -6974,7 +6974,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1664380193}
         m_TargetAssemblyTypeName: ButtonGameMenu, Assembly-CSharp
-        m_MethodName: ButtonPauseResume
+        m_MethodName: ButtonResume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
