@@ -5,27 +5,30 @@ public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance;
 
-    private float _maxLife = 100;
-    private float _maxStamina = 100;
-    private int _durationXpBoost = 3;
+    private float _maxLife = 50;
+    private float _maxStamina = 50;
 
-    private float _life = 100;
-    private float _stamina = 100;
-    private float _damage = 10;
+    private float _life = 50;
+    private float _stamina = 50;
+    private float _damage = 5;
     private float _speed = 15;
     private int _score = 0;
     private int _nbKill = 0;
     private float _xp = 0;
     private float _level = 1;
 
-    private readonly float _lifeMultiplier = 0.2f;
-    private readonly float _staminaMultiplier = 0.2f;
-    private readonly float _damageMultiplier = 0.2f;
-    private readonly float _xpNeedMultiplier = 0.05f;
+    private float _lifeAdd = 5;
+    private float _staminaAdd = 5;
+    private float _damageAdd = 2.5f;
+    private float _xpNeedAdd = 20;
+    private float _levelUpDecreaser = 1.75f;
+    private float _xpNeedAddMultiplier = 0.2f;
 
     private bool _canLoseStamina = true;
+    private int _durationXpBoost = 3;
     private float _durationStaminaBoost = 3;
     private int _xpBoost = 1;
+    private int _levelToDecreaseLevelUp = 2;
 
     private float _xpNeededToLevelUp = 100;
 
@@ -87,17 +90,31 @@ public class PlayerStats : MonoBehaviour
     private void LevelUp()
     {
         _xp -= _xpNeededToLevelUp;
-        _xpNeededToLevelUp += _xpNeededToLevelUp * _xpNeedMultiplier;
+        _xpNeededToLevelUp += _xpNeedAdd;
 
         _level += 1;
 
-        _maxLife += _maxLife * _lifeMultiplier;
-        _life = _maxLife;
+        _maxLife += _lifeAdd;
+        _life += (_maxLife - _life) / 2;
 
-        _maxStamina += _maxStamina * _staminaMultiplier;
-        _stamina = _maxStamina;
+        _maxStamina += _staminaAdd;
+        _stamina += (_maxStamina - _stamina) / 2;
 
-        _damage += _damage * _damageMultiplier;
+        _damage += _damageAdd;
+
+        DecreaseLevelUp();
+    }
+
+    private void DecreaseLevelUp()
+    {
+        if (_level % _levelToDecreaseLevelUp == 0)
+        {
+            _damageAdd /= _levelUpDecreaser;
+            _lifeAdd /= _levelUpDecreaser;
+            _staminaAdd /= _levelUpDecreaser;
+
+            _xpNeedAdd += _xpNeedAdd * _xpNeedAddMultiplier;
+        }
     }
 
     public void StopAttack()
@@ -134,6 +151,7 @@ public class PlayerStats : MonoBehaviour
     private IEnumerator StaminaBoosted()
     {
         _canLoseStamina = false;
+        _stamina = _maxStamina;
 
         yield return new WaitForSeconds(_durationStaminaBoost);
 

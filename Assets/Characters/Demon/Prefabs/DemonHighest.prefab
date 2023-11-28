@@ -117,7 +117,7 @@ MonoBehaviour:
   Life: 200
   MaxLife: 200
   TimeBetweenAttacks: 1
-  Speed: 15
+  Speed: 10
   XP: 100
   Score: 100
 --- !u!114 &1868921333485443979
