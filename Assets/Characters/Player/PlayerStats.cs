@@ -55,6 +55,14 @@ public class PlayerStats : MonoBehaviour
             Instance = this;
     }
 
+    private void Start()
+    {
+        foreach (var collider in GetComponents<Collider2D>())
+        {
+            collider.enabled = false;
+        }
+    }
+
     public void TakeDamage(float damage)
     { _life -= damage; _life = _life < 0 ? 0 : _life; }
 
@@ -94,10 +102,10 @@ public class PlayerStats : MonoBehaviour
         _level += 1;
 
         _maxLife += _lifeAdd;
-        _life += (_maxLife - _life) / 2;
+        _life += _life == _maxLife ? _maxLife - _life : (_maxLife - _life) / 2;
 
         _maxStamina += _staminaAdd;
-        _stamina += (_maxStamina - _stamina) / 2;
+        _stamina += _stamina == _maxStamina ? _maxStamina - _stamina : (_maxStamina - _stamina) / 2;
 
         _damage += _damageAdd;
 

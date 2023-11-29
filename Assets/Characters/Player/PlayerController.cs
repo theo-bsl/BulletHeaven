@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
         #if !UNITY_EDITOR
         UpdateBinding(playerInput.currentActionMap, "Pause", "<Keyboard>/escape");
         #endif
-
     }
 
     public void OnMove(InputAction.CallbackContext context)

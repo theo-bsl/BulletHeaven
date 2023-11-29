@@ -13,6 +13,7 @@ public class DemonStats : MonoBehaviour
     private void OnEnable()
     {
         GetComponent<SpriteRenderer>().sortingOrder = Random.Range(-10, 0);
+        ResetLife();
     }
 
     public void TakeDamage(float damage)
@@ -34,7 +35,6 @@ public class DemonStats : MonoBehaviour
         PlayerStats.Instance.TakeXp(XP);
         PlayerStats.Instance.IncreaseNbKill();
 
-        Life = MaxLife;
         GetComponent<DemonAttack>().Death();
 
         ObjectPoolManager.ReturnObjectToPool(gameObject);

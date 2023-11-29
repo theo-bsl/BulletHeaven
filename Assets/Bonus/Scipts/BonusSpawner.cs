@@ -12,7 +12,7 @@ public class BonusSpawner : MonoBehaviour
     private int _waitSpawn = 10;
     private bool _canSpawn = false;
 
-    public List<GameObject> bonusPrefabs = new List<GameObject>(5);
+    public List<GameObject> bonusPrefabs = new List<GameObject>(4);
 
     private void Awake()
     {
@@ -78,5 +78,5 @@ public class BonusSpawner : MonoBehaviour
         spawnPoint.y = Random.Range(_minBound.y, _maxBound.y);
     }
 
-    public bool CanSpawn {  get { return _canSpawn; } set { _canSpawn = value; } }
+    public bool CanSpawn {  get { return _canSpawn; } set { _canSpawn = value; _spawnTime = Time.time + _waitSpawn; } }
 }

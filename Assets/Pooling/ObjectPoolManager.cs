@@ -20,6 +20,8 @@ public class ObjectPoolManager : MonoBehaviour
     private static GameObject DemonBulletHighEmpty;
     private static GameObject DemonBulletHighestEmpty;
 
+    private static GameObject BossEmpty;
+
     private static GameObject BonusEmpty;
 
     public enum PoolType
@@ -35,6 +37,8 @@ public class ObjectPoolManager : MonoBehaviour
         DemonBulletMid,
         DemonBulletHigh,
         DemonBulletHighest,
+
+        Boss,
 
         Bonus,
 
@@ -78,6 +82,9 @@ public class ObjectPoolManager : MonoBehaviour
 
         DemonBulletHighestEmpty = new GameObject("DemonBulletHighest");
         DemonBulletHighestEmpty.transform.SetParent(ObjectPoolEmptyHolder.transform);
+
+        BossEmpty = new GameObject("Boss");
+        BossEmpty.transform.SetParent(ObjectPoolEmptyHolder.transform);
 
         BonusEmpty = new GameObject("Bonus");
         BonusEmpty.transform.SetParent(ObjectPoolEmptyHolder.transform);
@@ -163,6 +170,8 @@ public class ObjectPoolManager : MonoBehaviour
             case PoolType.DemonBulletHigh: return DemonBulletHighEmpty;
 
             case PoolType.DemonBulletHighest: return DemonBulletHighestEmpty;
+
+            case PoolType.Boss: return BossEmpty;
 
 
             case PoolType.Bonus: return BonusEmpty;

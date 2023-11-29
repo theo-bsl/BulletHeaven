@@ -18,6 +18,12 @@ public class GameManager : MonoBehaviour
     
     private float _startTime = 0;
 
+    private bool _inGame = true;
+    private float _gameTime = 0;
+    private bool _inBoss = false;
+    private bool _isBossFightStarted = false;
+    private float _bossTime = 0;
+
     [SerializeField] private WaveManager.Phase _phase = WaveManager.Phase.low;
 
     private void Awake()
@@ -43,48 +49,69 @@ public class GameManager : MonoBehaviour
             SwitchCursor();
             GameOver();
         }
+
+        _gameTime += _inGame ? Time.deltaTime : 0;
+        _bossTime += _inBoss ? Time.deltaTime : 0;
     }
 
     public bool CheckInScreen(Vector2 position)
     {
         if (position.x > _maxBound.x + _boundOffset)
         {
-            return true;
+            return false;
         }
         else if (position.x < _minBound.x - _boundOffset)
         {
-            return true;
+            return false;
         }
         else if (position.y > _maxBound.y + _boundOffset)
         {
-            return true;
+            return false;
         }
         else if (position.y < _minBound.y - _boundOffset)
         {
-            return true;
+            return false;
         }
         else
-            return false;
+            return true;
     }
 
     public void UpdatePhase()
     {
-        if (PlayerStats.Instance.Score >= ((float)_phase))
+        if (PlayerStats.Instance.Score >= ((float)_phase) && !_isBossFightStarted)
         {
-            _phase = Enum.GetValues(typeof(WaveManager.Phase)).Cast<WaveManager.Phase>().SkipWhile(e => e != _phase).Skip(1).First();
-
-            if (_phase == WaveManager.Phase.mid)
-            {
-                StartCoroutine(LaunchBonusSpawner());
-            }
+            _isBossFightStarted = true;
+            StartCoroutine(BossFight());
         }
     }
+
+    private void NextPhase()
+    {
+        _phase = Enum.GetValues(typeof(WaveManager.Phase)).Cast<WaveManager.Phase>().SkipWhile(e => e != _phase).Skip(1).First();
+    }
+
+    private IEnumerator BossFight()
+    {
+        _inGame = false;
+        _inBoss = true;
+        DemonSpawner.Instance.DoSpawnBoss();
+        BonusSpawner.Instance.CanSpawn = false;
+
+        yield return new WaitWhile(() => DemonSpawner.Instance.DemonInScreen);
+        yield return new WaitWhile(() => DemonSpawner.Instance.BossIsAlive());
+        
+        _inGame = true;
+        _inBoss = false;
+        _isBossFightStarted = false;
+        NextPhase();
+        BonusSpawner.Instance.CanSpawn = true;
+    }/*
 
     private IEnumerator LaunchBonusSpawner()
     {
         yield return new WaitUntil(() => !DemonSpawner.Instance.IsSpawning);
         BonusSpawner.Instance.CanSpawn = true;
-    }
+    }*/
 
     public void PausesGame()
     {
@@ -120,5 +147,15 @@ public class GameManager : MonoBehaviour
     public Vector2 MaxBound { get { return _maxBound; } }
     public int BoundOffset { get { return _boundOffset; } }
     public float StartTime { get { return _startTime; } }
+    public float AllTime { get { return _gameTime + _bossTime; } }
+    public bool InGame { get { return _inGame; } }
     public WaveManager.Phase Phase { get { return _phase; } }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!focus)
+        {
+            PausesGame();
+        }
+    }
 }

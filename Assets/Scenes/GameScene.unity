@@ -2943,6 +2943,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DemonsPrefab:
+  - {fileID: 329036323053597962, guid: d4ae1bdd84113c64d8ded6a0313d9f5b, type: 3}
+  - {fileID: 3879488380976883595, guid: 44af9704ae65601409040b1e1308b243, type: 3}
+  - {fileID: 5014156015816188129, guid: 8119e919c405a45458b7fdd525200bdc, type: 3}
+  - {fileID: 6603931329621014965, guid: f1b44eb050410834798424e57368aed2, type: 3}
+  BossPrefab:
   - {fileID: 329036323053597962, guid: 2a3089f6315c85840a6cf02e491cc18c, type: 3}
   - {fileID: 3879488380976883595, guid: 2f660af973736604f96453273f9f0346, type: 3}
   - {fileID: 5014156015816188129, guid: e2edda79ce584e440aadb73661fd8bdf, type: 3}
@@ -5857,6 +5862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1208201750}
   gameOverMenu: {fileID: 1347919570}
+  _phase: 400
 --- !u!4 &1668466325
 Transform:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@ public class DemonMovement : MonoBehaviour
     {
         Move();
 
-        if (GameManager.Instance.CheckInScreen(_transform.position))
+        if (!GameManager.Instance.CheckInScreen(_transform.position))
         {
             GetComponent<DemonStats>().ResetLife();
             ObjectPoolManager.ReturnObjectToPool(gameObject);

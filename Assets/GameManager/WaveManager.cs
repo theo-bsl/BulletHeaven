@@ -8,7 +8,7 @@ public static class WaveManager
         highest = 15975,
         ultimate1 = 20000,
         ultimate2 = 50000,
-        //ultimate3 = 60000
+        ultimate3 = 60000
     }
 
     private static int _waitSpawn = 7;
@@ -24,7 +24,7 @@ public static class WaveManager
 
     public static float[] TimeWaves { get { return timeWaves; } }
 
-    private static int[] minMaxNbDemon = new int[20]
+    private static int[] minMaxNbDemon = new int[20 /*32*/]
     {
         // wave low
         10, 20 ,
@@ -42,22 +42,20 @@ public static class WaveManager
         95, 110 ,
         65, 80 ,
         35, 50 ,
-        10, 20
+        10, 20,
+/*
+        //wave ultimate 1
+        65, 80 ,
+        35, 50 ,
+        10, 20 ,
+
+        //wave ultimate 2
+        35, 50 ,
+        10, 20 ,
+
+        // wave ultimate 3
+        10, 20 ,*/
     };
 
     public static int[] MinMaxNbDemon { get { return minMaxNbDemon; } }
-
-
-
-    // add higher ranked demons
-    public static readonly int MaxScoreWave1 =   400;
-    public static readonly int MaxScoreWave2 =  1800;
-    public static readonly int MaxScoreWave3 =  6075;
-    public static readonly int MaxScoreWave4 = 15975;
-
-    // remove lower ranked demons
-    /*public static readonly int MaxScoreWave5 = 400;
-    public static readonly int MaxScoreWave6 = 1800;
-    public static readonly int MaxScoreWave7 = 6075;
-    public static readonly int MaxScoreWave8 = 15975;*/
 }
