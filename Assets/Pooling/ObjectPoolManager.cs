@@ -147,7 +147,7 @@ public class ObjectPoolManager : MonoBehaviour
         }
     }
 
-    private static GameObject SetParentObject(PoolType poolType)
+    public static GameObject SetParentObject(PoolType poolType)
     {
         switch (poolType)
         {

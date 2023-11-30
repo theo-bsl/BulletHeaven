@@ -20,17 +20,19 @@ public class PlayerStats : MonoBehaviour
     private float _lifeAdd = 5;
     private float _staminaAdd = 5;
     private float _damageAdd = 2.5f;
-    private float _xpNeedAdd = 20;
-    private float _levelUpDecreaser = 1.75f;
+    private float _xpNeedAdd = 15;
+    private float _levelUpDecreaser = 0.90f;
     private float _xpNeedAddMultiplier = 0.2f;
+    private int _levelToDecreaseLevelUp = 2;
+    private float _xpNeededToLevelUp = 100;
 
     private bool _canLoseStamina = true;
     private int _durationXpBoost = 3;
     private float _durationStaminaBoost = 3;
     private int _xpBoost = 1;
-    private int _levelToDecreaseLevelUp = 2;
+    private int _durationAttackDouble = 20;
 
-    private float _xpNeededToLevelUp = 100;
+    private int _laserBeamDamageMultiplier = 10;
 
     #region Get
     public float Life { get { return _life; } }
@@ -46,6 +48,9 @@ public class PlayerStats : MonoBehaviour
     public float XP { get { return _xp; } }
     public float XpNeededToLevelUp { get {  return _xpNeededToLevelUp; } }
     public float Level { get { return _level; } }
+
+
+    public int LaserBeamDamageMultiplier { get { return _laserBeamDamageMultiplier; } }
     #endregion
 
 
@@ -53,14 +58,6 @@ public class PlayerStats : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
-    }
-
-    private void Start()
-    {
-        foreach (var collider in GetComponents<Collider2D>())
-        {
-            collider.enabled = false;
-        }
     }
 
     public void TakeDamage(float damage)
@@ -76,10 +73,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     public void TakeScore(int score)
-    { 
-        _score += score;
-        GameManager.Instance.UpdatePhase();
-    }
+    { _score += score; }
 
     public void TakeXp(float xp)
     {
@@ -102,10 +96,10 @@ public class PlayerStats : MonoBehaviour
         _level += 1;
 
         _maxLife += _lifeAdd;
-        _life += _life == _maxLife ? _maxLife - _life : (_maxLife - _life) / 2;
+        _life += _life == _maxLife ? _maxLife - _life : (_maxLife - _life);
 
         _maxStamina += _staminaAdd;
-        _stamina += _stamina == _maxStamina ? _maxStamina - _stamina : (_maxStamina - _stamina) / 2;
+        _stamina += _stamina == _maxStamina ? _maxStamina - _stamina : (_maxStamina - _stamina);
 
         _damage += _damageAdd;
 
@@ -116,9 +110,9 @@ public class PlayerStats : MonoBehaviour
     {
         if (_level % _levelToDecreaseLevelUp == 0)
         {
-            _damageAdd /= _levelUpDecreaser;
-            _lifeAdd /= _levelUpDecreaser;
-            _staminaAdd /= _levelUpDecreaser;
+            _damageAdd *= _levelUpDecreaser;
+            _lifeAdd *= _levelUpDecreaser;
+            _staminaAdd *= _levelUpDecreaser;
 
             _xpNeedAdd += _xpNeedAdd * _xpNeedAddMultiplier;
         }
@@ -163,5 +157,19 @@ public class PlayerStats : MonoBehaviour
         yield return new WaitForSeconds(_durationStaminaBoost);
 
         _canLoseStamina = true;
+    }
+
+    public void AttackDouble()
+    {
+        StartCoroutine(AttackDoubled());
+    }
+
+    private IEnumerator AttackDoubled()
+    {
+        GetComponent<PlayerAttack>().SetAttackDouble(true);
+
+        yield return new WaitForSeconds(_durationAttackDouble);
+
+        GetComponent<PlayerAttack>().SetAttackDouble(false);
     }
 }

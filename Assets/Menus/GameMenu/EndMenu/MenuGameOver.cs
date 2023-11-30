@@ -14,7 +14,6 @@ public class MenuGameOver : MonoBehaviour
         score.text = score.text.Substring(0, score.text.Length - 1) + player.Score.ToString();
         kills.text = kills.text.Substring(0, kills.text.Length - 1) + player.NbKill.ToString();
 
-        time.text = time.text.Substring(0, time.text.Length - 1) + ((int)(Time.time - GameManager.Instance.StartTime)).ToString();
-        //time.text = time.text.Substring(0, time.text.Length - 1) + ((int)GameManager.Instance.AllTime).ToString();
+        time.text = time.text.Substring(0, time.text.Length - 1) + ((int)GameManager.Instance.AllTime).ToString();
     }
 }

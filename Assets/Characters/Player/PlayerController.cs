@@ -40,7 +40,16 @@ public class PlayerController : MonoBehaviour
     public void OnSwitchAttackMode(InputAction.CallbackContext context)
     {
         if (context.started)
+        {
             PlayerAttack.SwitchAttackMode();
+            PlayerHUD.Instance.SwitchAttackMode();
+        }
+    }
+
+    public void OnAutoAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            PlayerAttack.SwitchAutoAttackMode();
     }
 
     public void OnAttack(InputAction.CallbackContext context)

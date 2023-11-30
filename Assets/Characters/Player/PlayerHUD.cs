@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour
 {
+    public static PlayerHUD Instance;
+
     private PlayerStats _playerStats;
 
     public Image life;
@@ -12,9 +14,11 @@ public class PlayerHUD : MonoBehaviour
     public TextMeshProUGUI level;
 
     public TextMeshProUGUI time;
-    private float _startTime = 0;
     public TextMeshProUGUI score;
     public TextMeshProUGUI kill;
+
+    public GameObject Bubble;
+    public GameObject LaserBeam;
 
     public TextMeshProUGUI maxLife;
     private string s_maxlife;
@@ -27,7 +31,8 @@ public class PlayerHUD : MonoBehaviour
 
     private void Awake()
     {
-        _playerStats = PlayerStats.Instance;
+        if (Instance == null)
+            Instance = this;
 
         s_maxlife = maxLife.text;
         s_maxstamina = maxStamina.text;
@@ -37,7 +42,7 @@ public class PlayerHUD : MonoBehaviour
 
     private void Start()
     {
-        _startTime = Time.time;
+        _playerStats = PlayerStats.Instance;
     }
 
     private void Update()
@@ -48,7 +53,7 @@ public class PlayerHUD : MonoBehaviour
 
         level.text = _playerStats.Level.ToString();
 
-        time.text = ((int)(Time.time - _startTime)).ToString();
+        time.text = ((int)GameManager.Instance.AllTime).ToString();
         score.text = _playerStats.Score.ToString();
         kill.text = _playerStats.NbKill.ToString();
 
@@ -58,5 +63,11 @@ public class PlayerHUD : MonoBehaviour
         maxStamina.text = s_maxstamina + _playerStats.MaxStamina.ToString();
         maxXp.text = s_maxxp + _playerStats.XpNeededToLevelUp.ToString();
         damage.text = s_maxdamage + _playerStats.Damage.ToString();
+    }
+
+    public void SwitchAttackMode()
+    {
+        Bubble.SetActive(!Bubble.activeSelf);
+        LaserBeam.SetActive(!LaserBeam.activeSelf);
     }
 }

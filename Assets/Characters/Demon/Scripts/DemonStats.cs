@@ -6,9 +6,18 @@ public class DemonStats : MonoBehaviour
     public float MaxLife = 100;
     public int TimeBetweenAttacks = 0;
     public float Speed = 15;
+    public int Damage = 0;
 
     public float XP = 0;
     public int Score = 0;
+
+    private ObjectPoolManager.PoolType _poolType = ObjectPoolManager.PoolType.DemonLow;
+
+    public enum DemonRank
+    {
+        Low, Mid, High, Highest, EasterEgg
+    }
+    public DemonRank _rank = DemonRank.Low;
 
     private void OnEnable()
     {
@@ -39,4 +48,14 @@ public class DemonStats : MonoBehaviour
 
         ObjectPoolManager.ReturnObjectToPool(gameObject);
     }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.transform.TryGetComponent(out PlayerStats player))
+        {
+            player.TakeDamage(Damage * Time.deltaTime);
+        }
+    }
+
+    public ObjectPoolManager.PoolType PoolType { get { return _poolType; } }
+    public DemonRank Rank { get { return _rank; } }
 }

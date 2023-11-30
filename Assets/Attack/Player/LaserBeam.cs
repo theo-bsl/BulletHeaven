@@ -9,6 +9,9 @@ public class LaserBeam : MonoBehaviour
     private LayerMask _worldBorderLayer;
     private float _rayDistance = 0;
     private float _offsetRay = 10;
+    private int _laserBeamDamageMultiplier = 1;
+    private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer _bubbleSpriteRenderer;
 
     private void OnEnable()
     {
@@ -25,6 +28,10 @@ public class LaserBeam : MonoBehaviour
         _scale = _transform.localScale;
         _enemyLayer = LayerMask.GetMask("Enemy");
         _worldBorderLayer = LayerMask.GetMask("WorldBorder");
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _bubbleSpriteRenderer = BubbleLaserBeam.GetComponent<SpriteRenderer>();
+
+        gameObject.SetActive(false);
     }
 
     private void Start()
@@ -34,7 +41,13 @@ public class LaserBeam : MonoBehaviour
 
     private void Update()
     {
-        var colliders = Physics2D.RaycastAll(BubbleLaserBeam.transform.position, _transform.up, _rayDistance, _enemyLayer | _worldBorderLayer);
+        SetLaserBeam();
+        AttackEnemies();
+    }
+
+    private void SetLaserBeam()
+    {
+        var colliders = Physics2D.RaycastAll(BubbleLaserBeam.transform.position, _transform.up, _rayDistance, _worldBorderLayer);
 
         if (colliders.Length > 0)
         {
@@ -44,15 +57,39 @@ public class LaserBeam : MonoBehaviour
             _transform.localScale = _scale;
 
             _transform.position = Vector2.Lerp(BubbleLaserBeam.transform.position, hit.point, 0.5f);
-
-            if (hit.transform.TryGetComponent(out DemonStats demon))
-            {
-                demon.TakeDamage(PlayerStats.Instance.Damage * 6 * Time.deltaTime);
-            }
         }
         else
         {
             Debug.LogWarning("Laser beam collide with nothing");
+        }
+    }
+
+    private void AttackEnemies()
+    {
+        var colliders = Physics2D.RaycastAll(BubbleLaserBeam.transform.position, _transform.up, _rayDistance, _enemyLayer);
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].transform.TryGetComponent(out DemonStats demon))
+            {
+                demon.TakeDamage(PlayerStats.Instance.Damage * _laserBeamDamageMultiplier * Time.deltaTime);
+            }
+        }
+    }
+
+    public void SetAttackDouble(bool AttackDouble)
+    {
+        if (AttackDouble)
+        {
+            _laserBeamDamageMultiplier = PlayerStats.Instance.LaserBeamDamageMultiplier * 2;
+            _spriteRenderer.color = Color.red;
+            _bubbleSpriteRenderer.color = Color.red;
+        }
+        else
+        {
+            _laserBeamDamageMultiplier = PlayerStats.Instance.LaserBeamDamageMultiplier;
+            _spriteRenderer.color = Color.cyan;
+            _bubbleSpriteRenderer.color = Color.cyan;
         }
     }
 

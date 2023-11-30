@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8298507291635252094}
   - component: {fileID: -2379637290157781991}
   - component: {fileID: 7575568126524648982}
-  - component: {fileID: -9023805783496260007}
+  - component: {fileID: -213381787288855503}
   m_Layer: 6
   m_Name: DemonHigh
   m_TagString: Untagged
@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c050176009391545a42c162a472670e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
 --- !u!114 &-8298507291635252094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,8 +117,10 @@ MonoBehaviour:
   MaxLife: 100
   TimeBetweenAttacks: 3
   Speed: 7
+  Damage: 0
   XP: 50
   Score: 50
+  _rank: 2
 --- !u!114 &-2379637290157781991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,8 +134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 8560588084396044448, guid: a3c18b0f93888bc4fa703949843d6c57, type: 3}
-  poolType: 7
-  rank: 2
 --- !u!61 &7575568126524648982
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -180,7 +179,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &-9023805783496260007
+--- !u!50 &-213381787288855503
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -206,4 +205,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

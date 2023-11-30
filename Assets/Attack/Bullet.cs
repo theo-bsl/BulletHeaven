@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     {
         Move();
 
-        if (!GameManager.Instance.CheckInScreen(_transform.position))
+        if (!GameManager.Instance.CheckInScreenWithOffset(_transform.position))
         {
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }

@@ -1,13 +1,12 @@
 using UnityEngine;
 
-public class PlayerBullet : Bullet
+public class GateRegeneration : Bonus
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out DemonStats demon))
+        if (collision.TryGetComponent(out PlayerStats player))
         {
-            demon.TakeDamage(_damage);
-
+            ParadiseGateStats.Instance.LifeRegeneration();
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }

@@ -4,7 +4,8 @@ public class DemonMovement : MonoBehaviour
 {
     private Transform _transform;
     private Vector3 _direction = Vector3.down;
-    [SerializeField] private float _speed = 1;
+    private float _speed = 1;
+    private int _damage = 1;
 
     private void Awake()
     {
@@ -14,15 +15,17 @@ public class DemonMovement : MonoBehaviour
     private void Start()
     {
         _speed = GetComponent<DemonStats>().Speed;
+        _damage = GetComponent<DemonStats>().Score;
     }
 
     private void Update()
     {
         Move();
 
-        if (!GameManager.Instance.CheckInScreen(_transform.position))
+        if (!GameManager.Instance.CheckInScreenWithOffset(_transform.position))
         {
             GetComponent<DemonStats>().ResetLife();
+            ParadiseGateStats.Instance.TakeDamage(_damage);
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }
