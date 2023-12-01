@@ -4,14 +4,15 @@ public class DemonStats : MonoBehaviour
 {
     public float Life = 100;
     public float MaxLife = 100;
-    public int TimeBetweenAttacks = 0;
+    public float TimeBetweenAttacks = 0;
     public float Speed = 15;
     public int Damage = 0;
 
     public float XP = 0;
     public int Score = 0;
 
-    private ObjectPoolManager.PoolType _poolType = ObjectPoolManager.PoolType.DemonLow;
+    public ObjectPoolManager.PoolType PoolType = ObjectPoolManager.PoolType.DemonLow;
+    public ObjectPoolManager.PoolType BulletPoolType = ObjectPoolManager.PoolType.DemonLow;
 
     public enum DemonRank
     {
@@ -44,7 +45,10 @@ public class DemonStats : MonoBehaviour
         PlayerStats.Instance.TakeXp(XP);
         PlayerStats.Instance.IncreaseNbKill();
 
-        GetComponent<DemonAttack>().Death();
+        if (PoolType != ObjectPoolManager.PoolType.Boss)
+        {
+            GetComponent<DemonAttack>().Death();
+        }
 
         ObjectPoolManager.ReturnObjectToPool(gameObject);
     }
@@ -56,6 +60,5 @@ public class DemonStats : MonoBehaviour
         }
     }
 
-    public ObjectPoolManager.PoolType PoolType { get { return _poolType; } }
     public DemonRank Rank { get { return _rank; } }
 }

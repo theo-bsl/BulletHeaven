@@ -4,7 +4,7 @@ public class DemonAttack : MonoBehaviour
 {
     private Transform _transform;
     private float _attackTime = 0;
-    private int _waitTime = 0;
+    private float _waitTime = 0;
 
     public GameObject bulletPrefab;
     private ObjectPoolManager.PoolType poolType;
@@ -22,7 +22,7 @@ public class DemonAttack : MonoBehaviour
         DemonStats demon = _transform.GetComponent<DemonStats>();
 
         _waitTime = demon.TimeBetweenAttacks;
-        poolType = demon.PoolType;
+        poolType = demon.BulletPoolType;
         rank = demon.Rank;
     }
 

@@ -43,8 +43,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (false)
-        //if ((PlayerStats.Instance.Life <= 0 || ParadiseGateStats.Instance.Life <= 0) && !_isFinish)
+        if ((PlayerStats.Instance.Life <= 0 || ParadiseGateStats.Instance.Life <= 0) && !_isFinish)
         {
             _isFinish = true;
             SwitchTime();

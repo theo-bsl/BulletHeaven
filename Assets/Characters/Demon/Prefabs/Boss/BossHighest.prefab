@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 726495280419750532}
   - component: {fileID: 3764986848265278260}
-  - component: {fileID: 8916688352527095620}
+  - component: {fileID: -6891620412254019135}
   - component: {fileID: 9181859596439239803}
-  - component: {fileID: 1868921333485443979}
+  - component: {fileID: 2148188787754983165}
   - component: {fileID: 2373116063095340337}
   - component: {fileID: -5916233406561244766}
   m_Layer: 6
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.1981132, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -89,19 +89,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8916688352527095620
+--- !u!114 &-6891620412254019135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6603931329621014965}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c050176009391545a42c162a472670e, type: 3}
+  m_Script: {fileID: 11500000, guid: 89728b1b412f5bd45aaa148b872511ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
 --- !u!114 &9181859596439239803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,9 +117,13 @@ MonoBehaviour:
   MaxLife: 200
   TimeBetweenAttacks: 1
   Speed: 10
+  Damage: 0
   XP: 100
   Score: 100
---- !u!114 &1868921333485443979
+  PoolType: 9
+  BulletPoolType: 8
+  _rank: 3
+--- !u!114 &2148188787754983165
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,12 +132,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6603931329621014965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3099762b009b4041bdca454eb7e579c, type: 3}
+  m_Script: {fileID: 11500000, guid: e0e1e4e1a637cd2468851e6e6605b435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 8560588084396044448, guid: b9a9dbe7230ea814d8fdaee99e5c57b7, type: 3}
-  poolType: 8
-  rank: 3
+  bulletPrefab: {fileID: 8560588084396044448, guid: b45c2b6b91beda6488d4deda0baf2855, type: 3}
 --- !u!61 &2373116063095340337
 BoxCollider2D:
   m_ObjectHideFlags: 0

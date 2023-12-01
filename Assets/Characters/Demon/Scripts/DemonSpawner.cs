@@ -38,7 +38,7 @@ public class DemonSpawner : MonoBehaviour
         spawnLimit.y = GameManager.Instance.MaxBound.x - 3;
         spawnPoint.y = GameManager.Instance.MaxBound.y + 6.5f;
 
-        //bossSpawnPoint.y = spawnPoint.y;
+        bossSpawnPoint.y = spawnPoint.y;
 
         _waitSpawn = WaveManager.WaitSpawn;
 
@@ -110,7 +110,7 @@ public class DemonSpawner : MonoBehaviour
                 return new int[4] { 0, 0, Random.Range(minMaxNbDemon[26], minMaxNbDemon[27]), Random.Range(minMaxNbDemon[28], minMaxNbDemon[29])};
 
             case WaveManager.Phase.ultimate3:
-                return new int[4] { 0, 0, 0, 1 };
+                return new int[4] { 0, 0, 0, Random.Range(minMaxNbDemon[30], minMaxNbDemon[31]) };
 
             default: return null;
         }

@@ -60,14 +60,14 @@ public static class WaveManager
         //wave ultimate 1
         65, 80 ,
         35, 50 ,
-        10, 20 ,
+        15, 25 ,
 
         //wave ultimate 2
-        35, 50 ,
-        10, 20 ,
+        80, 100 ,
+        400, 50 ,
 
         // wave ultimate 3
-        10, 20 ,
+        60, 80 ,
     };
 
     public static int[] MinMaxNbDemon { get { return minMaxNbDemon; } }
