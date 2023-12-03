@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -33,6 +34,9 @@ public class PlayerStats : MonoBehaviour
     private int _durationAttackDouble = 20;
 
     private int _laserBeamDamageMultiplier = 10;
+
+    public List<Sprite> Skins = new List<Sprite>(3);
+    private int indexSkins = 0;
 
     #region Get
     public float Life { get { return _life; } }
@@ -95,27 +99,39 @@ public class PlayerStats : MonoBehaviour
 
         _level += 1;
 
+        bool lifeIsMax = _life == _maxLife;
         _maxLife += _lifeAdd;
-        _life += _life == _maxLife ? _maxLife - _life : (_maxLife - _life);
+        _life += lifeIsMax ? _maxLife - _life : (_maxLife - _life) / 2;
 
+        bool staminaIsMax = _stamina == _maxStamina;
         _maxStamina += _staminaAdd;
-        _stamina += _stamina == _maxStamina ? _maxStamina - _stamina : (_maxStamina - _stamina);
+        _stamina += staminaIsMax ? _maxStamina - _stamina : (_maxStamina - _stamina) / 2;
 
         _damage += _damageAdd;
 
-        DecreaseLevelUp();
+        if (_level % _levelToDecreaseLevelUp == 0)
+        {
+            DecreaseLevelUp();
+        }
+
+        if (_level % 10 == 0)
+        {
+            UpgradePlayer();
+        }
     }
 
     private void DecreaseLevelUp()
     {
-        if (_level % _levelToDecreaseLevelUp == 0)
-        {
-            _damageAdd *= _levelUpDecreaser;
-            _lifeAdd *= _levelUpDecreaser;
-            _staminaAdd *= _levelUpDecreaser;
+        _damageAdd *= _levelUpDecreaser;
+        _lifeAdd *= _levelUpDecreaser;
+        _staminaAdd *= _levelUpDecreaser;
 
-            _xpNeedAdd += _xpNeedAdd * _xpNeedAddMultiplier;
-        }
+        _xpNeedAdd += _xpNeedAdd * _xpNeedAddMultiplier;
+    }
+
+    private void UpgradePlayer()
+    {
+        GetComponent<SpriteRenderer>().sprite = Skins[indexSkins++];
     }
 
     public void StopAttack()
