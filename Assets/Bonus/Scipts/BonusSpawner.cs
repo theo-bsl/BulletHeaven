@@ -12,7 +12,8 @@ public class BonusSpawner : MonoBehaviour
     private int _waitSpawn = 10;
     private bool _canSpawn = false;
 
-    public List<GameObject> bonusPrefabs = new List<GameObject>(5);
+    public List<GameObject> bonusPrefabs = new List<GameObject>(6);
+    private int[] indexBonusCanBeSpawn = new int[6];
 
     private void Awake()
     {
@@ -43,7 +44,7 @@ public class BonusSpawner : MonoBehaviour
         {
             if (Time.time > _spawnTime)
             {
-                if (Random.Range(0, 100) < 50)
+                //if (Random.Range(0, 100) < 50)
                 {
                     SetSpawnPoint();
                     SpawnBonus();
@@ -56,19 +57,9 @@ public class BonusSpawner : MonoBehaviour
 
     private void SpawnBonus()
     {
-        var phase = GameManager.Instance.Phase;
-
-        if (phase == WaveManager.Phase.mid)
+        if (GameManager.Instance.Phase > WaveManager.Phase.low)
         {
-            ObjectPoolManager.SpawnObject(bonusPrefabs[Random.Range(0, 1 + 1)], spawnPoint, ObjectPoolManager.PoolType.Bonus);
-        }
-        else if (phase == WaveManager.Phase.high)
-        {
-            ObjectPoolManager.SpawnObject(bonusPrefabs[Random.Range(0, 3 + 1)], spawnPoint, ObjectPoolManager.PoolType.Bonus);
-        }
-        else if (phase >= WaveManager.Phase.highest)
-        {
-            ObjectPoolManager.SpawnObject(bonusPrefabs[Random.Range(0, 4 + 1)], spawnPoint, ObjectPoolManager.PoolType.Bonus);
+            ObjectPoolManager.SpawnObject(bonusPrefabs[ChooseRandomBonus()], spawnPoint, ObjectPoolManager.PoolType.Bonus);
         }
     }
 
@@ -78,5 +69,20 @@ public class BonusSpawner : MonoBehaviour
         spawnPoint.y = Random.Range(_minBound.y, _maxBound.y);
     }
 
-    public bool CanSpawn {  get { return _canSpawn; } set { _canSpawn = value; } }
+    public void UpdateBonusCanBeSpawn()
+    {
+        switch(GameManager.Instance.Phase)
+        {
+            case WaveManager.Phase.mid: indexBonusCanBeSpawn = new int[2] { 0, 1 }; break;
+            case WaveManager.Phase.high: indexBonusCanBeSpawn = new int[4] { 0, 1, 2, 3 }; break;
+            case > WaveManager.Phase.high: indexBonusCanBeSpawn = new int[6] { 0, 1, 2, 3, 4, 5 }; break;
+        }
+    }
+
+    private int ChooseRandomBonus()
+    {
+        return indexBonusCanBeSpawn[Random.Range(0, indexBonusCanBeSpawn.Length)];
+    }
+
+    public bool CanSpawn {  get { return _canSpawn; } set { _canSpawn = value; _spawnTime = Time.time + _waitSpawn; } }
 }

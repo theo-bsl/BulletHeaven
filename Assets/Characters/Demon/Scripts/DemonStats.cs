@@ -4,15 +4,26 @@ public class DemonStats : MonoBehaviour
 {
     public float Life = 100;
     public float MaxLife = 100;
-    public int TimeBetweenAttacks = 0;
+    public float TimeBetweenAttacks = 0;
     public float Speed = 15;
+    public int Damage = 0;
 
     public float XP = 0;
     public int Score = 0;
 
+    public ObjectPoolManager.PoolType PoolType = ObjectPoolManager.PoolType.DemonLow;
+    public ObjectPoolManager.PoolType BulletPoolType = ObjectPoolManager.PoolType.DemonLow;
+
+    public enum DemonRank
+    {
+        Low, Mid, High, Highest, EasterEgg
+    }
+    public DemonRank _rank = DemonRank.Low;
+
     private void OnEnable()
     {
         GetComponent<SpriteRenderer>().sortingOrder = Random.Range(-10, 0);
+        ResetLife();
     }
 
     public void TakeDamage(float damage)
@@ -34,9 +45,20 @@ public class DemonStats : MonoBehaviour
         PlayerStats.Instance.TakeXp(XP);
         PlayerStats.Instance.IncreaseNbKill();
 
-        Life = MaxLife;
-        GetComponent<DemonAttack>().Death();
+        if (PoolType != ObjectPoolManager.PoolType.Boss)
+        {
+            GetComponent<DemonAttack>().Death();
+        }
 
         ObjectPoolManager.ReturnObjectToPool(gameObject);
     }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.transform.TryGetComponent(out PlayerStats player))
+        {
+            player.TakeDamage(Damage * Time.deltaTime);
+        }
+    }
+
+    public DemonRank Rank { get { return _rank; } }
 }

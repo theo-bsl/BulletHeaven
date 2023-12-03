@@ -4,18 +4,13 @@ public class DemonAttack : MonoBehaviour
 {
     private Transform _transform;
     private float _attackTime = 0;
-    private int _waitTime = 0;
+    private float _waitTime = 0;
 
     public GameObject bulletPrefab;
-    public ObjectPoolManager.PoolType poolType;
+    private ObjectPoolManager.PoolType poolType;
+    private DemonStats.DemonRank rank;
 
     private GameObject bullet;
-
-    public enum DemonRank
-    {
-        Low, Mid, High, Highest , EasterEgg
-    }
-    public DemonRank rank;
 
     private void Awake()
     {
@@ -27,6 +22,8 @@ public class DemonAttack : MonoBehaviour
         DemonStats demon = _transform.GetComponent<DemonStats>();
 
         _waitTime = demon.TimeBetweenAttacks;
+        poolType = demon.BulletPoolType;
+        rank = demon.Rank;
     }
 
     private void Update()
@@ -38,12 +35,12 @@ public class DemonAttack : MonoBehaviour
     {
         if (Time.time > _attackTime)
         {
-            if (rank == DemonRank.Low)
+            if (rank == DemonStats.DemonRank.Low)
             {
                 bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _transform.position - _transform.up, poolType);
                 bullet.GetComponent<Bullet>().SetDirection(-_transform.up);
             }
-            else if (rank == DemonRank.Mid)
+            else if (rank == DemonStats.DemonRank.Mid)
             {
                 bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _transform.position - _transform.up + _transform.right, poolType);
                 bullet.GetComponent<Bullet>().SetDirection(-_transform.up);
@@ -51,7 +48,7 @@ public class DemonAttack : MonoBehaviour
                 bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _transform.position - _transform.up - _transform.right, poolType);
                 bullet.GetComponent<Bullet>().SetDirection(-_transform.up);
             }
-            else if (rank == DemonRank.High)
+            else if (rank == DemonStats.DemonRank.High)
             {
                 for (float i = 157.5f + 90; i <= 202.5f + 90; i += 15)
                 {
@@ -59,7 +56,7 @@ public class DemonAttack : MonoBehaviour
                     bullet.GetComponent<Bullet>().SetDirection(i);
                 }
             }
-            else if (rank == DemonRank.Highest)
+            else if (rank == DemonStats.DemonRank.Highest)
             {
                 for (float i = 135 + 90; i <= 225 + 90; i += 22.5f /*15*/)
                 {
@@ -67,7 +64,7 @@ public class DemonAttack : MonoBehaviour
                     bullet.GetComponent<Bullet>().SetDirection(i);
                 }
             }
-            else if (rank == DemonRank.EasterEgg)
+            else if (rank == DemonStats.DemonRank.EasterEgg)
             {
                 for (int i = 0; i <= 360; i += 30)
                 {
